@@ -1,0 +1,30 @@
+/* Import Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom color scheme */
+.navbar {
+  background: linear-gradient(90deg, #4169E1, #5A84F5); /* Royal Blue Gradient */
+  transition: all 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #6B46C1; /* Purple */
+}
+
+.bg-purple {
+  background-color: #6B46C1; /* Purple */
+}
+
+.text-purple {
+  color: #6B46C1; /* Purple */
+}
+
+/* Mobile menu */
+.navbar .block {
+  background: #4169E1; /* Royal Blue for mobile menu */
+  padding: 1rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

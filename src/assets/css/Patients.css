@@ -1,0 +1,46 @@
+/* Import Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom color scheme */
+.bg-royal-blue {
+  background-color: #4169E1; /* Royal Blue */
+}
+
+.text-royal-blue {
+  color: #4169E1; /* Royal Blue */
+}
+
+.bg-purple {
+  background-color: #6B46C1; /* Purple */
+}
+
+.text-purple {
+  color: #6B46C1; /* Purple */
+}
+
+.focus\:ring-purple:focus {
+  ring-color: #6B46C1; /* Purple */
+}
+
+/* Table styles */
+.patients-page table {
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.patients-page th,
+.patients-page td {
+  transition: background-color 0.2s ease;
+}
+
+/* Modal styles */
+.patients-page .fixed {
+  z-index: 50;
+}
+
+.patients-page .max-w-lg {
+  max-width: 32rem;
+}

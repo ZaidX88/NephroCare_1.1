@@ -1,0 +1,42 @@
+/* Import Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom color scheme */
+.bg-royal-blue {
+  background-color: #4169E1; /* Royal Blue */
+}
+
+.text-royal-blue {
+  color: #4169E1; /* Royal Blue */
+}
+
+.bg-purple {
+  background-color: #6B46C1; /* Purple */
+}
+
+.text-purple {
+  color: #6B46C1; /* Purple */
+}
+
+.focus\:ring-purple:focus {
+  ring-color: #6B46C1; /* Purple */
+}
+
+/* Table styles */
+.patient-details-page table {
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.patient-details-page th,
+.patient-details-page td {
+  transition: background-color 0.2s ease;
+}
+
+/* Card styles */
+.patient-details-page .shadow-xl {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}

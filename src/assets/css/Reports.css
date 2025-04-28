@@ -1,0 +1,60 @@
+/* Import Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom color scheme */
+.bg-royal-blue {
+  background-color: #4169E1; /* Royal Blue */
+}
+
+.text-royal-blue {
+  color: #4169E1; /* Royal Blue */
+}
+
+.bg-purple {
+  background-color: #6B46C1; /* Purple */
+}
+
+.text-purple {
+  color: #6B46C1; /* Purple */
+}
+
+.focus\:ring-purple:focus {
+  ring-color: #6B46C1; /* Purple */
+}
+
+/* Table styles */
+.reports-page table {
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed; /* Ensure consistent column widths */
+}
+
+.reports-page th,
+.reports-page td {
+  transition: background-color 0.2s ease;
+  vertical-align: middle; /* Align content vertically */
+  overflow: hidden; /* Prevent text overflow */
+  text-overflow: ellipsis; /* Add ellipsis for long text */
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+/* Column widths */
+.reports-page th:nth-child(1),
+.reports-page td:nth-child(1) {
+  width: 25%; /* Patient Name */
+}
+.reports-page th:nth-child(2),
+.reports-page td:nth-child(2) {
+  width: 25%; /* Report Date */
+}
+.reports-page th:nth-child(3),
+.reports-page td:nth-child(3) {
+  width: 25%; /* Diagnosis */
+}
+.reports-page th:nth-child(4),
+.reports-page td:nth-child(4) {
+  width: 25%; /* Actions */
+}
