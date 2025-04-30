@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/NephroCare_1.1/static/css/main.b88ab792.css",
+    "main.js": "/NephroCare_1.1/static/js/main.0c44b8ab.js",
+    "static/js/453.991c201e.chunk.js": "/NephroCare_1.1/static/js/453.991c201e.chunk.js",
+    "index.html": "/NephroCare_1.1/index.html",
+    "main.b88ab792.css.map": "/NephroCare_1.1/static/css/main.b88ab792.css.map",
+    "main.0c44b8ab.js.map": "/NephroCare_1.1/static/js/main.0c44b8ab.js.map",
+    "453.991c201e.chunk.js.map": "/NephroCare_1.1/static/js/453.991c201e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b88ab792.css",
+    "static/js/main.0c44b8ab.js"
+  ]
+}
