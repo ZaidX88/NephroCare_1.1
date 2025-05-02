@@ -5,6 +5,8 @@ import Home from './pages/Home';
 import Patients from './pages/Patients';
 import Alerts from './pages/Alerts';
 import PatientDetails from './pages/PatientDetails';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/signin" element={<SignIn />} />
             <Route path="/patients" element={<Patients />} />
             <Route path="/patients/:id" element={<PatientDetails />} />
             <Route path="/alerts" element={<Alerts />} />
