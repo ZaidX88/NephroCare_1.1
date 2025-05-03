@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import homepic from '../img/homepic.png';
 
 function Home() {
   const navigate = useNavigate();
@@ -22,9 +23,9 @@ function Home() {
           Get Started
         </button>
         <img
-          src="https://via.placeholder.com/600x400"
+          src={homepic}
           alt="Healthcare Illustration"
-          className="mt-10 rounded-lg shadow-lg"
+          className="mt-10 rounded-lg "
         />
       </main>
 
@@ -63,14 +64,14 @@ function Home() {
           <p className="text-gray-700 max-w-3xl mx-auto mb-6">
             Have questions or need assistance? Reach out to our support team, and we'll be happy to help.
           </p>
-          <button className="bg-blue-400 hover:bg-blue-500 text-white py-2 px-6 rounded-xl transition shadow-lg">
+          <button className="bg-blue-400 hover:bg-blue-500 text-white py-2 px-6 rounded-xl transition shadow-lg" onClick={() => navigate('/contactus')}>
             Contact Support
           </button>
         </div>
       </section>
 
       <footer className="bg-blue-600 text-white text-center text-sm py-4 mt-auto">
-        © 2025 NephroCare. All rights reserved.
+        © 2025 NephroCare. Brainstorm compition project.
       </footer>
     </div>
   );
