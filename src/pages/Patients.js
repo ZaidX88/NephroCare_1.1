@@ -1,45 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import {FaUserPlus} from "react-icons/fa"
+import { FaUserPlus } from 'react-icons/fa';
+import { db } from './firebase.js'; // Assuming you have the Firebase configuration set up
+import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 import '../assets/css/Patients.css';
 
 function Patients() {
   const navigate = useNavigate();
 
   // Mock patient data with state
-  const [patients, setPatients] = useState([
-    {
-      id: 1,
-      name: 'John Doe',
-      age: 45,
-      diagnosis: 'Chronic Kidney Disease (Stage 3)',
-      lastVisit: '2025-04-15',
-    },
-    {
-      id: 2,
-      name: 'Jane Smith',
-      age: 62,
-      diagnosis: 'Acute Kidney Injury',
-      lastVisit: '2025-04-10',
-    },
-    {
-      id: 3,
-      name: 'Michael Brown',
-      age: 38,
-      diagnosis: 'Nephrotic Syndrome',
-      lastVisit: '2025-03-28',
-    },
-    {
-      id: 4,
-      name: 'Emily Davis',
-      age: 50,
-      diagnosis: 'Polycystic Kidney Disease',
-      lastVisit: '2025-04-20',
-    },
-  ]);
-
-  // State for modal and form
+  const [patients, setPatients] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     id: null,
@@ -47,66 +17,83 @@ function Patients() {
     age: '',
     diagnosis: '',
     lastVisit: '',
+    nextVisit: '',
+    severity: '',
   });
   const [isEditing, setIsEditing] = useState(false);
 
-  // Open modal for adding a new patient
+  // Function to fetch patients from Firebase
+  const fetchPatients = async () => {
+    const querySnapshot = await getDocs(collection(db, "patients"));
+    const patientsList = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    setPatients(patientsList);
+  };
+
+  // Fetch patients when the component mounts
+  useEffect(() => {
+    fetchPatients();
+  }, []);
+
   const openAddModal = () => {
-    setFormData({ id: null, name: '', age: '', diagnosis: '', lastVisit: '' });
+    setFormData({ id: null, name: '', age: '', diagnosis: '', lastVisit: '', nextVisit: '', severity: '' });
     setIsEditing(false);
     setIsModalOpen(true);
   };
 
-  // Open modal for editing an existing patient
   const openEditModal = (patient) => {
     setFormData({ ...patient });
     setIsEditing(true);
     setIsModalOpen(true);
   };
 
-  // Close modal
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  // Handle form input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (isEditing) {
-      // Update existing patient
-      setPatients((prev) =>
-        prev.map((p) =>
-          p.id === formData.id ? { ...formData, age: parseInt(formData.age) } : p
-        )
-      );
-    } else {
-      // Add new patient
-      const newPatient = {
-        id: patients.length + 1,
+      // Update existing patient in Firebase
+      const patientRef = doc(db, "patients", formData.id);
+      await updateDoc(patientRef, {
         name: formData.name,
         age: parseInt(formData.age),
         diagnosis: formData.diagnosis,
         lastVisit: formData.lastVisit,
+        nextVisit: formData.nextVisit,
+        severity: formData.severity,
+      });
+    } else {
+      // Add new patient to Firebase
+      const newPatient = {
+        name: formData.name,
+        age: parseInt(formData.age),
+        diagnosis: formData.diagnosis,
+        lastVisit: formData.lastVisit,
+        nextVisit: formData.nextVisit,
+        severity: formData.severity,
       };
-      setPatients((prev) => [...prev, newPatient]);
+      await addDoc(collection(db, "patients"), newPatient);
     }
+    fetchPatients(); // Refresh the patient list
     closeModal();
   };
 
-  // Handle delete patient
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this patient?')) {
-      setPatients((prev) => prev.filter((p) => p.id !== id));
+      await deleteDoc(doc(db, "patients", id));
+      fetchPatients(); // Refresh the patient list
     }
   };
 
-  // Handle row click to navigate to patient details
   const handleRowClick = (id) => {
     navigate(`/patients/${id}`);
   };
@@ -119,7 +106,8 @@ function Patients() {
           <button
             onClick={openAddModal}
             className="flex items-center space-x-2 bg-purple text-white px-5 py-3 rounded hover:bg-opacity-90 transition-shadow shadow-md"
-          ><FaUserPlus/>
+          >
+            <FaUserPlus />
             <span>Add Patient</span>
           </button>
         </div>
@@ -131,6 +119,8 @@ function Patients() {
                 <th className="py-3 px-4 text-left">Age</th>
                 <th className="py-3 px-4 text-left">Diagnosis</th>
                 <th className="py-3 px-4 text-left">Last Visit</th>
+                <th className="py-3 px-4 text-left">Next Visit</th>
+                <th className="py-3 px-4 text-left">Severity</th>
                 <th className="py-3 px-4 text-left">Actions</th>
               </tr>
             </thead>
@@ -145,10 +135,12 @@ function Patients() {
                   <td className="py-3 px-4">{patient.age}</td>
                   <td className="py-3 px-4">{patient.diagnosis}</td>
                   <td className="py-3 px-4">{patient.lastVisit}</td>
+                  <td className="py-3 px-4">{patient.nextVisit}</td>
+                  <td className="py-3 px-4">{patient.severity}</td>
                   <td className="py-3 px-4 flex space-x-2">
                     <button
                       onClick={(e) => {
-                        e.stopPropagation(); // Prevent row click
+                        e.stopPropagation();
                         openEditModal(patient);
                       }}
                       className="bg-royal-blue text-white px-3 py-1 rounded hover:bg-opacity-80 transition"
@@ -157,7 +149,7 @@ function Patients() {
                     </button>
                     <button
                       onClick={(e) => {
-                        e.stopPropagation(); // Prevent row click
+                        e.stopPropagation();
                         handleDelete(patient.id);
                       }}
                       className="bg-red-600 text-white px-3 py-1 rounded hover:bg-opacity-80 transition"
@@ -224,6 +216,32 @@ function Patients() {
                   className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-purple"
                   required
                 />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-1">Next Visit</label>
+                <input
+                  type="date"
+                  name="nextVisit"
+                  value={formData.nextVisit}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-purple"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-1">Severity</label>
+                <select
+                  name="severity"
+                  value={formData.severity}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-purple"
+                  required
+                >
+                  <option value="">Select Severity</option>
+                  <option value="Mild">Mild</option>
+                  <option value="Moderate">Moderate</option>
+                  <option value="Severe">Severe</option>
+                </select>
               </div>
               <div className="flex justify-end space-x-2">
                 <button

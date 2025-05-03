@@ -15,18 +15,8 @@ function PatientDetails() {
       age: 45,
       diagnosis: 'Chronic Kidney Disease (Stage 3)',
       lastVisit: '2025-04-15',
-      medicalHistory: [
-        { date: '2024-06-10', event: 'Diagnosed with CKD Stage 2' },
-        { date: '2024-12-05', event: 'Progressed to CKD Stage 3' },
-      ],
-      testResults: [
-        { date: '2025-04-15', test: 'eGFR', value: '45 mL/min/1.73m²' },
-        { date: '2025-04-15', test: 'Serum Creatinine', value: '1.8 mg/dL' },
-      ],
-      treatmentPlan: [
-        { date: '2025-04-15', detail: 'Continue ACE inhibitors' },
-        { date: '2025-04-15', detail: 'Low-sodium diet' },
-      ],
+      nextVisit: '2025-05-15',
+      severity: 'Moderate', // Added severity field
     },
     {
       id: 2,
@@ -34,56 +24,8 @@ function PatientDetails() {
       age: 62,
       diagnosis: 'Acute Kidney Injury',
       lastVisit: '2025-04-10',
-      medicalHistory: [
-        { date: '2025-03-20', event: 'Hospitalized for dehydration' },
-        { date: '2025-04-01', event: 'Diagnosed with AKI' },
-      ],
-      testResults: [
-        { date: '2025-04-10', test: 'eGFR', value: '30 mL/min/1.73m²' },
-        { date: '2025-04-10', test: 'Serum Creatinine', value: '2.5 mg/dL' },
-      ],
-      treatmentPlan: [
-        { date: '2025-04-10', detail: 'IV fluid therapy' },
-        { date: '2025-04-10', detail: 'Monitor electrolyte levels' },
-      ],
-    },
-    {
-      id: 3,
-      name: 'Michael Brown',
-      age: 38,
-      diagnosis: 'Nephrotic Syndrome',
-      lastVisit: '2025-03-28',
-      medicalHistory: [
-        { date: '2024-08-15', event: 'Diagnosed with Nephrotic Syndrome' },
-        { date: '2025-01-10', event: 'Started corticosteroids' },
-      ],
-      testResults: [
-        { date: '2025-03-28', test: 'Proteinuria', value: '3.5 g/day' },
-        { date: '2025-03-28', test: 'Serum Albumin', value: '2.8 g/dL' },
-      ],
-      treatmentPlan: [
-        { date: '2025-03-28', detail: 'Continue corticosteroids' },
-        { date: '2025-03-28', detail: 'Diuretic therapy' },
-      ],
-    },
-    {
-      id: 4,
-      name: 'Emily Davis',
-      age: 50,
-      diagnosis: 'Polycystic Kidney Disease',
-      lastVisit: '2025-04-20',
-      medicalHistory: [
-        { date: '2023-11-05', event: 'Diagnosed with PKD' },
-        { date: '2024-09-12', event: 'Hypertension management started' },
-      ],
-      testResults: [
-        { date: '2025-04-20', test: 'eGFR', value: '60 mL/min/1.73m²' },
-        { date: '2025-04-20', test: 'Kidney Size', value: 'Enlarged (ultrasound)' },
-      ],
-      treatmentPlan: [
-        { date: '2025-04-20', detail: 'Continue blood pressure medication' },
-        { date: '2025-04-20', detail: 'Regular ultrasound monitoring' },
-      ],
+      nextVisit: '2025-04-25',
+      severity: 'Severe', // Added severity field
     },
   ];
 
@@ -133,65 +75,9 @@ function PatientDetails() {
             <p><strong>Age:</strong> {patient.age}</p>
             <p><strong>Diagnosis:</strong> {patient.diagnosis}</p>
             <p><strong>Last Visit:</strong> {patient.lastVisit}</p>
+            <p><strong>Next Visit:</strong> {patient.nextVisit}</p>
+            <p><strong>Severity:</strong> {patient.severity}</p> {/* Added Severity */}
           </div>
-        </div>
-
-        {/* Medical History */}
-        <div className="bg-white shadow-xl rounded-2xl p-8 mb-8 transform hover:scale-[1.01] transition-transform">
-          <h2 className="text-2xl font-bold text-royal-blue mb-6 flex items-center space-x-2">
-            <FaHistory />
-            <span>Medical History</span>
-          </h2>
-          <ul className="list-disc pl-6 space-y-3 text-gray-700">
-            {patient.medicalHistory.map((entry, index) => (
-              <li key={index}>
-                <strong>{entry.date}:</strong> {entry.event}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Test Results */}
-        <div className="bg-white shadow-xl rounded-2xl p-8 mb-8 transform hover:scale-[1.01] transition-transform">
-          <h2 className="text-2xl font-bold text-royal-blue mb-6 flex items-center space-x-2">
-            <FaVial />
-            <span>Test Results</span>
-          </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="bg-purple text-white">
-                  <th className="py-3 px-6 text-left">Date</th>
-                  <th className="py-3 px-6 text-left">Test</th>
-                  <th className="py-3 px-6 text-left">Value</th>
-                </tr>
-              </thead>
-              <tbody>
-                {patient.testResults.map((result, index) => (
-                  <tr key={index} className="border-b hover:bg-gray-50">
-                    <td className="py-3 px-6">{result.date}</td>
-                    <td className="py-3 px-6">{result.test}</td>
-                    <td className="py-3 px-6">{result.value}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        {/* Treatment Plan */}
-        <div className="bg-white shadow-xl rounded-2xl p-8 transform hover:scale-[1.01] transition-transform">
-          <h2 className="text-2xl font-bold text-royal-blue mb-6 flex items-center space-x-2">
-            <FaClipboardList />
-            <span>Treatment Plan</span>
-          </h2>
-          <ul className="list-disc pl-6 space-y-3 text-gray-700">
-            {patient.treatmentPlan.map((plan, index) => (
-              <li key={index}>
-                <strong>{plan.date}:</strong> {plan.detail}
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </div>
