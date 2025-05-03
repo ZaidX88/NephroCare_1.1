@@ -20,7 +20,7 @@ function Navbar() {
         {/* Brand Logo */}
         <div className="text-2xl font-bold flex items-center space-x-2">
           <FaHospital className="text-purple" />
-          <NavLink to="/" className="hover:text-purple transition-colors">
+          <NavLink to="/dashboard" className="hover:text-purple transition-colors">
             NephroCare
           </NavLink>
         </div>
@@ -30,7 +30,7 @@ function Navbar() {
           <ul className="flex flex-row space-x-6">
             <li>
               <NavLink
-                to="/"
+                to="/dashboard"
                 className={({ isActive }) =>
                   `flex items-center space-x-2 py-2 px-4 rounded transition-colors ${
                     isActive
@@ -41,6 +41,36 @@ function Navbar() {
               >
                 <FaHome />
                 <span>Home</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/patients"
+                className={({ isActive }) =>
+                  `flex items-center space-x-2 py-2 px-4 rounded transition-colors ${
+                    isActive
+                      ? 'bg-purple text-white'
+                      : 'hover:bg-purple hover:text-white'
+                  }`
+                }
+              >
+                <FaUsers />
+                <span>Patients</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/alerts"
+                className={({ isActive }) =>
+                  `flex items-center space-x-2 py-2 px-4 rounded transition-colors ${
+                    isActive
+                      ? 'bg-purple text-white'
+                      : 'hover:bg-purple hover:text-white'
+                  }`
+                }
+              >
+                <FaBell />
+                <span>Alerts</span>
               </NavLink>
             </li>
           </ul>

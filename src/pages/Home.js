@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import homepic from '../img/homepic.png';
+import Navbar from '../components/Navbar';
 
 function Home() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white text-gray-800">
+      <Navbar />
       <main className="flex flex-col items-center text-center py-20 px-4">
         <h2 className="text-4xl font-semibold text-blue-600 mb-4">Welcome to Our Patient Health Care System</h2>
         <p className="text-lg max-w-xl text-gray-700 mb-6">

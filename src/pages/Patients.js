@@ -4,6 +4,7 @@ import { FaUserPlus } from 'react-icons/fa';
 import { db } from './firebase.js'; // Assuming you have the Firebase configuration set up
 import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 import '../assets/css/Patients.css';
+import Navbar2 from '../components/Navbar2'; // Assuming you have a Navbar component
 
 function Patients() {
   const navigate = useNavigate();
@@ -100,6 +101,7 @@ function Patients() {
 
   return (
     <div className="patients-page min-h-screen bg-gray-100 py-8">
+      <Navbar2 />
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-royal-blue">Patient Records</h1>

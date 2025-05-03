@@ -3,6 +3,7 @@ import { FaTimes } from 'react-icons/fa';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from './firebase';
 import '../assets/css/Alerts.css';
+import Navbar2 from '../components/Navbar2';
 
 function Alerts() {
   const [patients, setPatients] = useState([]);
@@ -35,6 +36,7 @@ function Alerts() {
 
   return (
     <div className="alerts-page min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 py-12">
+      <Navbar2 />
       <div className="container mx-auto px-4">
         <h1 className="text-4xl font-extrabold text-royal-blue mb-8">
           Patients with Appointments Today

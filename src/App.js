@@ -8,14 +8,15 @@ import PatientDetails from './pages/PatientDetails';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import ContactUs from './pages/ContactUs';
+import Dashboard from './pages/dashboard';
 
 function App() {
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
-        <Navbar />
         <main className="flex-grow">
           <Routes>
+          <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
